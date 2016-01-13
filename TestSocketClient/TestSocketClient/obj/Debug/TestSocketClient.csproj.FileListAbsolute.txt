@@ -1,0 +1,5 @@
+C:\Users\xyweng\Desktop\JOLD\TestSocketClient\TestSocketClient\bin\Debug\TestSocketClient.exe.config
+C:\Users\xyweng\Desktop\JOLD\TestSocketClient\TestSocketClient\bin\Debug\TestSocketClient.exe
+C:\Users\xyweng\Desktop\JOLD\TestSocketClient\TestSocketClient\bin\Debug\TestSocketClient.pdb
+C:\Users\xyweng\Desktop\JOLD\TestSocketClient\TestSocketClient\obj\Debug\TestSocketClient.exe
+C:\Users\xyweng\Desktop\JOLD\TestSocketClient\TestSocketClient\obj\Debug\TestSocketClient.pdb
