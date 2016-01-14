@@ -30,6 +30,9 @@ namespace TestSocketClient
             //转换成string并print到控制台。。
             string s_message = Encoding.Unicode.GetString(message, 0, messageLength);
             Console.WriteLine(s_message);
+
+            //递归调用（不造会不会有问题。。。
+            StartReceivingData();
         }
 
         #region 获取本机IP地址

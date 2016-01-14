@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 
 using System.Net;
 using System.Net.Sockets;
+using System.Timers;
 
 namespace TestSocketServer
 {
     class Program
     {
+        private const int SEND_DATA_INTERVAL = 200;
+
         private static IPEndPoint localEndPoint;
         private static int portID = 8001;
 
-        private static Socket mySocket;
+        private static Timer sendDataTimer;
 
+        private static Socket mySocket;
+        private static Socket clientConnected;
+
+        #region 获取本机IP
         public static IPAddress GetLocalIP()
         {
             try
@@ -44,14 +51,52 @@ namespace TestSocketServer
                 return IPAddress.Any;
             }
         }
+        #endregion
+
+        #region timer相关
+        public static void InitializingTimers()
+        {
+            sendDataTimer = new Timer(SEND_DATA_INTERVAL);
+            sendDataTimer.Elapsed += SendDataTimer_Elapsed;
+            sendDataTimer.Enabled = true;
+            sendDataTimer.Start();
+        }
+
+        public static void SendDataTimer_Elapsed(Object source, ElapsedEventArgs e)
+        {
+            if (clientConnected != null && clientConnected.Connected)
+            {
+                try
+                {
+                    clientConnected.Send(Encoding.Unicode.GetBytes("Message from server at " + DateTime.Now.ToString()));
+                }
+                catch (SocketException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    sendDataTimer.Stop();
+                }
+            }
+            else
+            {
+                Console.WriteLine("The client is disconnect (Sign by WXY)");
+                sendDataTimer.Stop();
+            }
+        }
+
+        #endregion
 
         //接收到客户端请求后的事件（个人理解。。。
         public static void ReceivingClientRequest(IAsyncResult ar)
         {
             //客户端的socket
-            Socket currentClient = mySocket.EndAccept(ar);
+            clientConnected = mySocket.EndAccept(ar);
             //发送欢迎消息
-            currentClient.Send(Encoding.Unicode.GetBytes("Hi, I accept you request at " + DateTime.Now.ToString()));
+            clientConnected.Send(Encoding.Unicode.GetBytes("Hi, I accept you request at " + DateTime.Now.ToString()));
+            //启动定时器
+            InitializingTimers();
+
+            //伪·递归调用（不造会不会有问题。。。
+            mySocket.BeginAccept(new AsyncCallback(ReceivingClientRequest), null);
         }
 
         public static bool SetupServer()
