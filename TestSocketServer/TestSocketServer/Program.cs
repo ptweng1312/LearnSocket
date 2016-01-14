@@ -16,15 +16,6 @@ namespace TestSocketServer
 
         private static Socket mySocket;
 
-        //接收到客户端请求后的事件（个人理解。。。
-        public static void ReceivingClientRequest(IAsyncResult ar)
-        {
-            //客户端的socket
-            Socket currentClient = mySocket.EndAccept(ar);
-            //发送欢迎消息
-            currentClient.Send(Encoding.Unicode.GetBytes("Hi, I accept you request at " + DateTime.Now.ToString()));
-        }
-
         public static IPAddress GetLocalIP()
         {
             try
@@ -52,6 +43,15 @@ namespace TestSocketServer
                 Console.WriteLine("获取本机IP出错！错误信息：" + ex.Message);
                 return IPAddress.Any;
             }
+        }
+
+        //接收到客户端请求后的事件（个人理解。。。
+        public static void ReceivingClientRequest(IAsyncResult ar)
+        {
+            //客户端的socket
+            Socket currentClient = mySocket.EndAccept(ar);
+            //发送欢迎消息
+            currentClient.Send(Encoding.Unicode.GetBytes("Hi, I accept you request at " + DateTime.Now.ToString()));
         }
 
         public static bool SetupServer()
