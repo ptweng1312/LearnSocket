@@ -8,3 +8,4 @@ C:\Users\xyweng\Desktop\JOLD\LearnSocket\TestSocketClient\TestSocketClient\obj\D
 C:\Users\xyweng\Desktop\JOLD\LearnSocket\TestSocketClient\TestSocketClient\obj\Debug\TestSocketClient.pdb
 C:\Users\xyweng\Desktop\JOLD\LearnSocket\TestSocketClient\TestSocketClient\bin\Debug\TestSocketClient.exe
 C:\Users\xyweng\Desktop\JOLD\LearnSocket\TestSocketClient\TestSocketClient\bin\Debug\TestSocketClient.pdb
+C:\Users\xyweng\Desktop\JOLD\LearnSocket\TestSocketClient\TestSocketClient\obj\Debug\TestSocketClient.csprojResolveAssemblyReference.cache
